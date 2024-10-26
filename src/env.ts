@@ -1,4 +1,4 @@
-import { envsafe, str, bool } from "envsafe";
+import { envsafe, str, bool } from 'envsafe';
 
 export const env = envsafe({
   AWS_ACCESS_KEY_ID: str(),
@@ -6,12 +6,12 @@ export const env = envsafe({
   AWS_S3_BUCKET: str(),
   AWS_S3_REGION: str(),
   BACKUP_DATABASE_URL: str({
-    desc: 'The connection string of the database to backup.'
+    desc: 'The connection string of the database to backup.',
   }),
   BACKUP_CRON_SCHEDULE: str({
     desc: 'The cron schedule to run the backup on.',
     default: '0 5 * * *',
-    allowEmpty: true
+    allowEmpty: true,
   }),
   AWS_S3_ENDPOINT: str({
     desc: 'The S3 custom endpoint you want to use.',
@@ -21,7 +21,7 @@ export const env = envsafe({
   AWS_S3_FORCE_PATH_STYLE: bool({
     desc: 'Use path style for the endpoint instead of the default subdomain style, useful for MinIO',
     default: false,
-    allowEmpty: true
+    allowEmpty: true,
   }),
   RUN_ON_STARTUP: bool({
     desc: 'Run a backup on startup of this application',
@@ -35,7 +35,7 @@ export const env = envsafe({
   BUCKET_SUBFOLDER: str({
     desc: 'A subfolder to place the backup files in',
     default: '',
-    allowEmpty: true
+    allowEmpty: true,
   }),
   SINGLE_SHOT_MODE: bool({
     desc: 'Run a single backup on start and exit when completed',
@@ -45,11 +45,26 @@ export const env = envsafe({
   // This is both time consuming and resource intensive so we leave it disabled by default
   SUPPORT_OBJECT_LOCK: bool({
     desc: 'Enables support for buckets with object lock by providing an MD5 hash with the backup file',
-    default: false
+    default: false,
   }),
   BACKUP_OPTIONS: str({
     desc: 'Any valid pg_dump option.',
     default: '',
     allowEmpty: true,
   }),
-})
+  BACKUP_START_CHECK_IN_URL: str({
+    desc: 'URL to ping when the backup starts',
+    default: '',
+    allowEmpty: true,
+  }),
+  BACKUP_COMPLETE_CHECK_IN_URL: str({
+    desc: 'URL to ping when the backup completes',
+    default: '',
+    allowEmpty: true,
+  }),
+  BACKUP_ERROR_CHECK_IN_URL: str({
+    desc: 'URL to ping when the backup fails',
+    default: '',
+    allowEmpty: true,
+  }),
+});
